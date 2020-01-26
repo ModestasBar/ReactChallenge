@@ -18,28 +18,28 @@ const initState: IState = {
   result: '',
 }
 
-export const Calculator: React.FC<Props>= ({ name }) => {
+export const Calculator: React.FC<Props> = ({ name }) => {
 
   let [{ equation, result }, setState] = useState<IState>(initState);
 
-  useEffect(() => setState({...initState}), [name]);
+  useEffect(() => setState({ ...initState }), [name]);
 
-  const handleEquation = (symbol:string) => {
-    switch(symbol) {
+  const handleEquation = (symbol: string) => {
+    switch (symbol) {
       case '=':
         try {
-          setState({ equation: eval(equation), result:eval(equation) });
-          } catch (e) {
-            alert('Invalid equation, try again');
-            setState({...initState});
+          if (equation.length) setState({ equation: eval(equation), result: eval(equation) });
+        } catch (e) {
+          alert('Invalid equation, try again');
+          setState({ ...initState });
         }
-      break;
+        break;
       case 'C':
-        setState({...initState});
-      break;
+        setState({ ...initState });
+        break;
       default:
-        setState({ equation: equation+=symbol, result})
-      break;
+        setState({ equation: equation += symbol, result })
+        break;
     }
   };
 
